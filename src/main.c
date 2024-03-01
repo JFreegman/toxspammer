@@ -1,22 +1,22 @@
 /*  main.c
  *
  *
- *  Copyright (C) 2024 toxspam All Rights Reserved.
+ *  Copyright (C) 2024 toxspammer All Rights Reserved.
  *
- *  This file is part of toxspam.
+ *  This file is part of toxspammer.
  *
- *  toxspam is free software: you can redistribute it and/or modify
+ *  toxspammer is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  toxspam is distributed in the hope that it will be useful,
+ *  toxspammer is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with toxspam.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with toxspammer.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
@@ -159,7 +159,7 @@ static void spammer_kill(Spammer *spam)
 }
 
 /* How long we wait after a successful request before we kill the tox instance */
-#define TIME_WAIT_AFTER_SEND 5
+#define TIME_WAIT_AFTER_SEND 10
 
 static bool spammer_finished(Spammer *spam)
 {
@@ -191,7 +191,7 @@ void *do_spammer_thread(void *data)
 
     LOCK;
     --threads.num_active;
-    fprintf(stderr, "killing thread (%u total)\n", threads.num_active);
+    fprintf(stderr, "killing tox instance (%u total)\n", threads.num_active);
     UNLOCK;
 
     pthread_exit(0);
@@ -255,7 +255,7 @@ static int do_thread_control(void)
 
     LOCK;
     ++threads.num_active;
-    fprintf(stderr, "new thread (%u total)\n", threads.num_active);
+    fprintf(stderr, "new tox instance (%u total)\n", threads.num_active);
     UNLOCK;
 
     return 0;
