@@ -103,16 +103,17 @@ static void catch_SIGINT(int sig)
     UNLOCK;
 }
 
+#define SPAM_MESSAGE "SPAM ATTACK!"
+#define SPAM_MESSAGE_LENGTH (sizeof(SPAM_MESSAGE) - 1)
+
 static void send_friend_request(Spammer *spam, const uint8_t *tox_id)
 {
     if (spam->time_request_sent > 0) {
         return;
     }
 
-    const char *msg = "SPAM ATTACK!";
-
     Tox_Err_Friend_Add err;
-    tox_friend_add(spam->tox, tox_id, (uint8_t *)msg, strlen(msg), &err);
+    tox_friend_add(spam->tox, tox_id, (uint8_t *)SPAM_MESSAGE, SPAM_MESSAGE_LENGTH, &err);
 
     if (err == TOX_ERR_FRIEND_ADD_OK) {
         spam->time_request_sent = get_time();
